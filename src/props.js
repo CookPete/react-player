@@ -74,6 +74,20 @@ export const propTypes = {
     }),
     vidyard: shape({
       options: object
+    }),
+    cinema8: shape({
+      options: {
+        width: string,
+        height: string,
+        autoplay: bool,
+        authToken: string,
+        subtitles: string,
+        externalUser: object,
+        campaignParams: string,
+        time: string,
+        resumeLastPosition: bool,
+        raw: bool
+      }
     })
   }),
   onReady: func,
@@ -184,6 +198,20 @@ export const defaultProps = {
     },
     vidyard: {
       options: {}
+    },
+    cinema8: {
+      options: {
+        width: '100%',
+        height: '100%',
+        autoplay: false,
+        authToken: null,
+        subtitles: null,
+        externalUser: null,
+        campaignParams: null,
+        time: null,
+        resumeLastPosition: false,
+        raw: false
+      }
     }
   },
   onReady: noop,
