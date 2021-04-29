@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { findDOMNode } from 'react-dom'
 import { hot } from 'react-hot-loader'
 import screenfull from 'screenfull'
 
@@ -8,7 +7,7 @@ import './defaults.css'
 import './range.css'
 import './App.css'
 
-import { version } from '../../package.json'
+import metadata from '../../package.json'
 import ReactPlayer from '../index'
 import Duration from './Duration'
 
@@ -97,7 +96,7 @@ class App extends Component {
     this.setState({ playing: false })
   }
 
-  handleSeekMouseDown = e => {
+  handleSeekMouseDown = () => {
     this.setState({ seeking: true })
   }
 
@@ -129,7 +128,9 @@ class App extends Component {
   }
 
   handleClickFullscreen = () => {
-    screenfull.request(findDOMNode(this.player))
+    if (screenfull.isEnabled) {
+      screenfull.request(document.getElementById('player'))
+    }
   }
 
   renderLoadButton = (url, label) => {
@@ -154,6 +155,7 @@ class App extends Component {
           <h1>ReactPlayer Demo</h1>
           <div className='player-wrapper'>
             <ReactPlayer
+              id='player'
               ref={this.ref}
               className='react-player'
               width='100%'
@@ -414,7 +416,7 @@ class App extends Component {
           </table>
         </section>
         <footer className='footer'>
-          Version <strong>{version}</strong>
+          Version <strong>{metadata.version}</strong>
           {SEPARATOR}
           <a href='https://github.com/CookPete/react-player'>GitHub</a>
           {SEPARATOR}
